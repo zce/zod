@@ -42,11 +42,11 @@ import {
 ///////////////////////////////////////
 ///////////////////////////////////////
 
-export type RefinementCtx = {
+export interface RefinementCtx {
   addIssue: (arg: IssueData) => void;
   path: (string | number)[];
   meta: ZodMeta;
-};
+}
 export type ZodRawShape = { [k: string]: ZodTypeAny };
 export type ZodTypeAny = ZodType<any, any, any>;
 export type TypeOf<T extends ZodType<any, any, any>> = T["_output"];
