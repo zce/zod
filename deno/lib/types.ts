@@ -4613,7 +4613,8 @@ export class ZodEffects<
           parent: ctx,
         });
 
-        if (!isValid(base)) return base;
+        if (base.status === "aborted") return base;
+        if (base.status === "dirty") status.dirty();
 
         const result = effect.transform(base.value, checkCtx);
         if (result instanceof Promise) {
@@ -4632,7 +4633,8 @@ export class ZodEffects<
             parent: ctx,
           })
           .then((base) => {
-            if (!isValid(base)) return base;
+            if (base.status === "aborted") return base;
+            if (base.status === "dirty") status.dirty();
 
             return Promise.resolve(effect.transform(base.value, checkCtx)).then(
               (result) => ({ status: status.value, value: result })
